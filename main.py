@@ -6,7 +6,7 @@ from fake_headers import Headers
 KEYWORDS = ['дизайн', 'фото', 'web', 'python']
 
 url = 'https://habr.com/ru/articles/'
-
+url_for_link = 'https://habr.com'
 
 def parsing_articles():
     headers = Headers(browser='chrome', os='windows').generate()
@@ -19,7 +19,7 @@ def parsing_articles():
         for el in KEYWORDS:
             if el in article.text.lower():
                 article_with_link = article.select_one('h2.tm-title.tm-title_h2')
-                link = 'https://habr.com' + article_with_link.select_one('a')['href']
+                link = url_for_link + article_with_link.select_one('a')['href']
 
                 response = requests.get(link)
                 article = bs4.BeautifulSoup(response.text, features='lxml')
@@ -31,5 +31,6 @@ def parsing_articles():
 
 
 parsing_articles()
+
 
 
