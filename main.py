@@ -10,8 +10,7 @@ def parsing_articles(url):
     headers = Headers(browser='chrome', os='windows').generate()
     response = requests.get(url, headers=headers)
     soup = bs4.BeautifulSoup(response.text, features='lxml')
-    articles_block = soup.select_one('div.tm-articles-list')
-    articles_list = articles_block.select('article.tm-articles-list__item')
+    articles_list = soup.select('article.tm-articles-list__item')
 
     for article in articles_list:
         for el in KEYWORDS:
@@ -29,6 +28,7 @@ def parsing_articles(url):
 
 
 parsing_articles('https://habr.com/ru/articles/')
+
 
 
 
